@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>张杰company</title>
+    <script src="//cdn.bootcss.com/angular.js/1.5.6/angular.min.js"></script>
+    <script type="text/javascript">
+	/*<![CDATA[*/
+	var app = angular.module('app', []);
+	app.controller('CompanyController', function($rootScope, $scope, $http) {
+		$scope.message = '';
+
+		//登录
+		$scope.createCompany = function() {
+			$scope.message = '';
+			$http(
+					{
+						url : '/company',
+						method : 'POST',
+						headers : {
+							'Content-Type' : 'application/x-www-form-urlencoded'
+						},
+						data : $.param($scope.company)
+					}).success(function(r) {
+				if (!r.success) {
+					$scope.message = r.message;
+					return;
+				}
+			});
+		}
+	});
+	/*]]>*/
+</script>
+</head>
+<body ng-app="app" ng-controller="CompanyController">
+
+<table cellspacing="1" style="background-color: #a0c6e5">
+    <tr>
+        <td>公司名称：</td>
+        <td><input ng-model="company.name" /></td>
+    </tr>
+    <tr>
+        <td>公司地址：</td>
+        <td><input ng-model="company.address" /></td>
+    </tr>
+    <tr>
+        <td>公司电话：</td>
+        <td><input ng-model="company.companyPhone" /></td>
+    </tr>
+    <tr>
+        <td>公司法人：</td>
+        <td><input ng-model="company.legalRepresentative" /></td>
+    </tr>
+    <tr>
+        <td>公司简介：</td>
+        <td><input ng-model="company.companyDescription" /></td>
+    </tr>
+</table>
+<input type="button" value="创建" ng-click="createCompany()" />
+<br />
+<font color="red" ng-show="message">{{message}}</font>
+<br />
+</body>
+</html>
