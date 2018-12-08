@@ -8,18 +8,25 @@
 	/*<![CDATA[*/
 	var app = angular.module('app', []);
 	app.controller('EditCompanyController', function($rootScope, $scope, $http) {
-		$scope.message = '';
 		//登录
 		$scope.editCompany = function() {
 			$scope.message = '';
+			$scope.company = {
+		    id: document.getElementById("id").value,
+            name: document.getElementById("name").value,
+            address: document.getElementById("address").value,
+            companyPhone: document.getElementById("phone").value,
+            legalRepresentative: document.getElementById("representative").value,
+            companyDescription: document.getElementById("description").value
+        }
 			$http(
 					{
 						url : '/company/edit',
 						method : 'PUT',
 						headers : {
-							'Content-Type' : 'application/x-www-form-urlencoded'
+							'Content-Type' : 'application/json'
 						},
-						data : $.param($scope.company)
+						data : $scope.company
 					}).success(function(r) {
 				if (!r.success) {
 					$scope.message = r.message;
@@ -32,26 +39,27 @@
 </script>
 </head>
 <body ng-app="app" ng-controller="EditCompanyController">
+<input type="hidden" id="id" th:value="${company.id}"/>
 <table>
     <tr>
         <td>公司名称：</td>
-        <td><input th:value="${company.name}"/></td>
+        <td><input id="name" th:value="${company.name}"/></td>
     </tr>
     <tr>
         <td>公司地址：</td>
-        <td><input th:value="${company.address}"/></td>
+        <td><input id="address" th:value="${company.address}"/></td>
     </tr>
     <tr>
         <td>公司电话：</td>
-        <td><input th:value="${company.companyPhone}"/></td>
+        <td><input id="phone" th:value="${company.companyPhone}"/></td>
     </tr>
     <tr>
         <td>公司法人：</td>
-        <td><input th:value="${company.legalRepresentative}" /></td>
+        <td><input id="representative" th:value="${company.legalRepresentative}" /></td>
     </tr>
     <tr>
         <td>公司简介：</td>
-        <td><input th:value="${company.companyDescription}"/></td>
+        <td><input id="description" th:value="${company.companyDescription}"/></td>
     </tr>
 </table>
 
