@@ -37,9 +37,9 @@ public class UserController {
     public @ResponseBody Map<String, Object> loginPost(String account, String password, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         User user = userRepository.getUserByUsername(account);
-        if (!password.equals(user.getPassword())) {
+        if (user == null || !password.equals(user.getPassword())) {
             map.put("success", false);
-            map.put("message", "密码错误");
+            map.put("message", "用户不存在或者密码错误");
             return map;
         }
         session.setAttribute(WebSecurityConfig.SESSION_KEY, account);
