@@ -25,6 +25,19 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 
         addInterceptor.excludePathPatterns("/error");
         addInterceptor.excludePathPatterns("/login**");
+        addInterceptor.excludePathPatterns("/company/show");
+        addInterceptor.excludePathPatterns("/**/*.png");
+        addInterceptor.excludePathPatterns("/**/*.gif");
+        addInterceptor.excludePathPatterns("/**/*.css");
+        addInterceptor.excludePathPatterns("/**/*.jpg");
+        addInterceptor.excludePathPatterns("/**/*.otf");
+        addInterceptor.excludePathPatterns("/**/*.eot");
+        addInterceptor.excludePathPatterns("/**/*.svg");
+        addInterceptor.excludePathPatterns("/**/*.ttf");
+        addInterceptor.excludePathPatterns("/**/*.woff");
+        addInterceptor.excludePathPatterns("/**/*.woff2");
+        addInterceptor.excludePathPatterns("/**/*.ico");
+        addInterceptor.excludePathPatterns("/**/*.js");
         addInterceptor.addPathPatterns("/**");
     }
 
