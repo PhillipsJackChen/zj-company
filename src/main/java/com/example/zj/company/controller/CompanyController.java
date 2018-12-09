@@ -49,4 +49,11 @@ public class CompanyController {
         return "company";
     }
 
+    @GetMapping("/company/show")
+    public String showCompany(Model model) {
+        Company company = companyRepository.getDefaultCompany();
+        model.addAttribute("company", company);
+        return "index2";
+    }
+
 }
